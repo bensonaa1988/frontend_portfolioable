@@ -59,7 +59,7 @@ const getProperties = (portfolioId) => {
 
 const postProperty = (portfolio, newproperty) => {
   return axios
-    .post(`${kBaseUrl}/portfolios/${portfolio.portfolioId}/properties`, newproperty)
+    .post(`${kBaseUrl}/portfolios/${portfolio.portfolioId}/properties/`, newproperty)
     .then ((response) => {
       return propertyApiToJson(response.data.property);
     })
@@ -204,7 +204,7 @@ function App() {
           )}
           {isPropertyFormVisible ? (
             <NewPropertyForm
-              onPropertyFormSubmit={addProperty}
+              onPropertySubmit={addProperty}
               onToggleVisible={togglePropertyForm}
             />
           ) : (
