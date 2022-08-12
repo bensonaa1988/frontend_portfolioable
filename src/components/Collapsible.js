@@ -9,7 +9,7 @@ const Collapsible = () => {
       
       return (
         <div>
-          <button class="Calculator" onClick={toggle}>Calculator</button>
+          <button className="Calculator" onClick={toggle}>Calculator</button>
           {open && (
             <div>
               <label className="toggle">Purchase Price:</label>
