@@ -196,7 +196,7 @@ function App() {
         <div className="forms-container">
           {isPortfolioFormVisible ? (
             <NewPortfolioForm
-              onPortfolioFormSubmit={addPortfolio}
+              onPortfolioSubmit={addPortfolio}
               onToggleVisible={togglePortfolioForm}
             />
           ) : (
