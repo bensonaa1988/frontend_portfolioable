@@ -83,7 +83,7 @@ const NewPortfolioForm = ({onPortfolioSubmit, onToggleVisible}) => {
 };
 
 NewPortfolioForm.propTypes = {
-onPortfolioFormSubmit: PropTypes.func.isRequired,
+onPortfolioSubmit: PropTypes.func.isRequired,
 onToggleVisible: PropTypes.func.isRequired,
 };
 
