@@ -1,0 +1,12 @@
+.portfolio-selection-dd {
+    font-family: 'Fjalla One', sans-serif;
+    width: 15em;
+    height: 3.5em;
+    font-size: 1.4em;
+    background-color: #8c4e86;
+    color: white;
+    border-radius: 1em;
+    border: none;
+    text-align: center;
+    margin: 0, auto;
+}
