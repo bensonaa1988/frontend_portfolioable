@@ -3,30 +3,39 @@ import PropTypes from "prop-types";
 import "../forms.css";
 
 const kDefaultFormState = {
-    notes: "",
+    name: '',
+    address: '',
+    city: '',
+    state: '',
+    bedrooms: '',
+    baths: '',
+    rating: '',
+    monthlypayment: ''
 };
 
-const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
-    const [propertyData, setpropertyData] = useState(kDefaultFormState);
-    const [isPropertyValid, setPropertyValid] = useState(false);
+const NewPropertyForm = ({ onPropertySubmit, onToggleVisible, portfolioId }) => {
+    const [formData, setFormData] = useState(kDefaultFormState);
+    const [isFormValid, setFormValid] = useState(false);
 
     const handleChange = (event) => {
     const fieldName = event.target.name;
     const fieldValue = event.target.value;
 
-    const newFormData = { ...propertyData, [fieldName]: fieldValue };
+    console.log(portfolioId);
 
-    setpropertyData(newFormData);
-    setPropertyValid(fieldValue ? fieldValue.length <= 100 : false);
+    const newFormData = { ...formData, [fieldName]: fieldValue };
+
+      setFormData(newFormData);
+      setFormValid(fieldValue ? fieldValue.length <= 100: false);
     };
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      onPropertySubmit(propertyData);
-      setpropertyData(kDefaultFormState);
-      setPropertyValid(false);
+      onPropertySubmit(formData);
+      setFormData(kDefaultFormState);
+      setFormValid(false);
       onToggleVisible();
-    };
+    }
 
     return (
         <div>
@@ -36,10 +45,10 @@ const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
             <input
               type="text"
               name="name"
-              value={propertyData.name}
+              value={formData.name}
               onChange={handleChange}
               className={
-                isPropertyValid ? "input--state-success" : "input--state-danger"
+                isFormValid ? "input--state-success" : "input--state-danger"
               }
             ></input>
           </div>
@@ -48,10 +57,10 @@ const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
             <input
               type="text"
               name="address"
-              value={propertyData.address}
+              value={formData.address}
               onChange={handleChange}
               className={
-                isPropertyValid ? "input--state-success" : "input--state-danger"
+                isFormValid ? "input--state-success" : "input--state-danger"
               }
             ></input>
           </div>
@@ -60,10 +69,10 @@ const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
             <input
               type="text"
               name="city"
-              value={propertyData.city}
+              value={formData.city}
               onChange={handleChange}
               className={
-                isPropertyValid ? "input--state-success" : "input--state-danger"
+                isFormValid ? "input--state-success" : "input--state-danger"
               }
             ></input>
           </div>
@@ -72,22 +81,22 @@ const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
             <input
               type="text"
               name="state"
-              value={propertyData.state}
+              value={formData.state}
               onChange={handleChange}
               className={
-                isPropertyValid ? "input--state-success" : "input--state-danger"
+                isFormValid ? "input--state-success" : "input--state-danger"
               }
             ></input>
           </div>
           <div>
             <label className="form-label">Bedrooms:</label>
             <input
-              type="text"
+              type="number"
               name="bedrooms"
-              value={propertyData.bedrooms}
+              value={formData.bedrooms}
               onChange={handleChange}
               className={
-                isPropertyValid ? "input--state-success" : "input--state-danger"
+                isFormValid ? "input--state-success" : "input--state-danger"
               }
             ></input>
           </div>
@@ -97,10 +106,10 @@ const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
             <input
               type="text"
               name="baths"
-              value={propertyData.baths}
+              value={formData.baths}
               onChange={handleChange}
               className={
-                isPropertyValid ? "input--state-success" : "input--state-danger"
+                isFormValid ? "input--state-success" : "input--state-danger"
               }
             ></input>
           </div>
@@ -109,10 +118,10 @@ const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
             <input
               type="text"
               name="rating"
-              value={propertyData.rating}
+              value={formData.rating}
               onChange={handleChange}
               className={
-                isPropertyValid ? "input--state-success" : "input--state-danger"
+                isFormValid ? "input--state-success" : "input--state-danger"
               }
             ></input>
           </div>
@@ -121,10 +130,10 @@ const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
             <input
               type="text"
               name="monthlypayment"
-              value={propertyData.monthlypayment}
+              value={formData.monthlypayment}
               onChange={handleChange}
               className={
-                isPropertyValid ? "input--state-success" : "input--state-danger"
+                isFormValid ? "input--state-success" : "input--state-danger"
               }
             ></input>
             </div>
@@ -133,7 +142,7 @@ const NewPropertyForm = ({ onPropertySubmit, onToggleVisible }) => {
             <input
               type="submit"
               value="add property"
-              disabled={!isPropertyValid}
+              disabled={!isFormValid}
               className="submit-button"
             ></input>
           </div>
@@ -148,14 +157,3 @@ NewPropertyForm.propTypes = {
     };
 
 export default NewPropertyForm;
-
-
-// key={property.propertyId}
-// propertyId={property.propertyId}
-// name={property.name}
-// address={property.address} 
-// city={property.city} 
-// state={property.city} 
-// bedrooms={property.bedrooms} 
-// baths={property.baths} 
-// rating={property.rat

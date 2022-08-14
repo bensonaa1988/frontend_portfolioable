@@ -6,7 +6,7 @@ import './App.css';
 import Collapsible from "./components/Collapsible";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {Router, BrowserRouter, Link } from "react-router-dom";
+// import {Router, BrowserRouter, Link } from "react-router-dom";
 
 
 const kBaseUrl = "http://127.0.0.1:8000";
@@ -23,7 +23,7 @@ const propertyApiToJson = (property) => {
 
 const getPortfolios = ()  => {
   return axios
-    .get(`${kBaseUrl}/portfolios`)
+    .get(`${kBaseUrl}/portfolios/`)
     .then((response) => {
       return response.data.map(portfolioApiToJson);
     })
@@ -33,21 +33,21 @@ const getPortfolios = ()  => {
     });
 };
 
-const postPortfolio = (newPortfolio) => {
+const postPortfolio = (newportfolio) => {
   return axios 
-    .post(`${kBaseUrl}/portfolios`, newPortfolio)
+    .post(`${kBaseUrl}/portfolios/`, newportfolio)
     .then((response) => {
-      return portfolioApiToJson(response.data.portfolio);
+      return portfolioApiToJson(response.data);
     })
     .catch((err) => {
       console.log(err);
-      throw new Error(`Error posting portfolios ${newPortfolio}: ${err}`);
+      throw new Error(`Error posting portfolios ${newportfolio}: ${err}`);
     });
 };
 
 const getProperties = (portfolioId) => {
   return axios 
-    .get(`${kBaseUrl}/portfolios/${portfolioId}/properties`)
+    .get(`${kBaseUrl}/portfolios/${portfolioId}/properties/`)
     .then((response) => {
       return response.data.map(propertyApiToJson);
     })
@@ -58,28 +58,35 @@ const getProperties = (portfolioId) => {
 };
 
 const postProperty = (portfolio, newproperty) => {
+  const propertyForApi = {
+    ...newproperty,
+    bedrooms: parseInt(newproperty.bedrooms),
+    baths: parseInt(newproperty.baths),
+    rating: parseInt(newproperty.rating),
+    monthlypayment: parseInt(newproperty.monthlypayment)
+  }
   return axios
-    .post(`${kBaseUrl}/portfolios/${portfolio.portfolioId}/properties/`, newproperty)
+    .post(`${kBaseUrl}/portfolios/${portfolio.portfolioId}/properties`, propertyForApi)
     .then ((response) => {
-      return propertyApiToJson(response.data.property);
+      return propertyApiToJson(response.data);
     })
     .catch((err) => {
       console.log(err);
-      throw new Error(`Error posting property ${newproperty}: ${err}`);
+      throw new Error(`Error posting property ${propertyForApi}: ${err}`);
     });
 };
 
-const patchProperty = (propertyId) => {
-  return axios
-    .patch(`${kBaseUrl}/properties/${propertyId}`)
-    .then((response) => {
-      return propertyApiToJson(response.data.property);
-    })
-    .catch((err) => {
-      console.log(err);
-      throw new Error(`Error updating property ${propertyId}: ${err}`);
-    });
-};
+// const patchProperty = (propertyId) => {
+//   return axios
+//     .patch(`${kBaseUrl}/properties/${propertyId}`)
+//     .then((response) => {
+//       return propertyApiToJson(response.data.property);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       throw new Error(`Error updating property ${propertyId}: ${err}`);
+//     });
+// };
 
 const deleteProperty = (propertyId) => {
   return axios.delete(`${kBaseUrl}/properties/${propertyId}`).catch((err) => {
@@ -101,8 +108,8 @@ function App() {
 
   const updatePortfolioData = () => {
     return getPortfolios()
-      .then((portfolio) => {
-        setPortfoliosData(portfolio);
+      .then((portfolios) => {
+        setPortfoliosData(portfolios);
       })
       .catch((err) => {
         console.log(err.message);
@@ -115,7 +122,7 @@ function App() {
   
   useEffect(() => {
     if (selectedPortfolio.portfolioId) {
-      getPortfolios(selectedPortfolio.portfolioId)
+      getProperties(selectedPortfolio.portfolioId)
         .then((properties) => {
           setPropertiesData(properties);
         })
@@ -175,6 +182,8 @@ function App() {
     updatePropertyFormVisibility((visible) => !visible);
   };
 
+  // console.log(selectedPortfolio.portfolioId)
+
   
   return (
     <main>
@@ -184,14 +193,13 @@ function App() {
       <div className="content-container">
         <div className="selection-container">
           <PortfolioList portfolios={portfoliosData} onPortfolioSelect={onPortfolioSelect} />
-          <button class="btn" onClick={togglePortfolioForm}>
-            create new portfolio
+          <button className="btn" onClick={togglePortfolioForm}>
+            Create New Portfolio
           </button>
     
-          <button class="btn" onClick={togglePropertyForm}>
-            add a new property
+          <button className="btn" onClick={togglePropertyForm}>
+            Add a New Property
           </button>
-          {/* create calculator btn and event handling */}
         </div>
         <div className="forms-container">
           {isPortfolioFormVisible ? (
@@ -206,6 +214,7 @@ function App() {
             <NewPropertyForm
               onPropertySubmit={addProperty}
               onToggleVisible={togglePropertyForm}
+              portfolioId = {selectedPortfolio.portfolioId}
             />
           ) : (
             ""
@@ -222,7 +231,7 @@ function App() {
         <hr/>
       </div>
       <footer>
-        <p class="disclaimer">© Team Generational Wealth 2022 All Rights Reserved</p>
+        <p className="disclaimer">© Team Generational Wealth 2022 All Rights Reserved</p>
       </footer>
       </main>
       

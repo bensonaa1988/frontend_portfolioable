@@ -20,19 +20,19 @@ const NewPortfolioForm = ({onPortfolioSubmit, onToggleVisible}) => {
         setFormData(newFormData);
 
         let validForm;
-    if (fieldName === "name") {
-    validForm = {
-    ...isFormValid,
-    title: fieldValue ? fieldValue.length <= 40 : false,
-    };
-} else if (fieldName === "notes") {
-    validForm = {
-    ...isFormValid,
-    owner: fieldValue ? fieldValue.length <= 2000 : false,
-    };
+        if (fieldName === "name") {
+            validForm = {
+                ...isFormValid,
+                name: fieldValue ? fieldValue.length <= 40 : false,
+        };
+    } else if (fieldName === "notes") {
+        validForm = {
+            ...isFormValid,
+            notes: fieldValue ? fieldValue.length <= 2000 : false,
+        };
     }
 
-        setFormValid(validForm);
+    setFormValid(validForm);
     };
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -44,43 +44,43 @@ const NewPortfolioForm = ({onPortfolioSubmit, onToggleVisible}) => {
 
     return (
         <div>
-    <form onSubmit={handleSubmit}>
-    <div>
-        <label className="form-label">Name:</label>
-        <input
-        type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        className={
-            isFormValid.title ? "input--state-success" : "input--state-danger"
-        }
-        ></input>
-    </div>
-    <div>
-        <label className="form-label">Notes:</label>
-        <input
-        type="text"
-        name="notes"
-        value={formData.notes}
-        onChange={handleChange}
-        className={
-            isFormValid.owner ? "input--state-success" : "input--state-danger"
-        }
-        ></input>
-    </div>
-    <div>
-        <input
-        type="submit"
-        value="add portfolio"
-        disabled={!(isFormValid.title && isFormValid.owner)}
-        className="submit-button"
-        ></input>
-    </div>
-    </form>
-</div>
-);
-};
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label className="form-label">Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        className={
+                            isFormValid.name ? "input--state-success" : "input--state-danger"
+                        }
+                    ></input>
+                </div>
+                <div>
+                    <label className="form-label">Notes:</label>
+                    <input
+                        type="text"
+                        name="notes"
+                        value={formData.notes}
+                        onChange={handleChange}
+                        className={
+                            isFormValid.notes ? "input--state-success" : "input--state-danger"
+                        }
+                    ></input>
+                </div>
+                <div>
+                    <input
+                        type="submit"
+                        value="add portfolio"
+                        disabled={!(isFormValid.name && isFormValid.notes)}
+                        className="submit-button"
+                    ></input>
+                </div>
+            </form>
+        </div>
+        );
+        };
 
 NewPortfolioForm.propTypes = {
 onPortfolioSubmit: PropTypes.func.isRequired,

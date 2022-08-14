@@ -17,6 +17,7 @@ const PropertyList = ({ properties, onDeleteProperty}) => {
                 baths={property.baths} 
                 rating={property.rating}
                 monthlypayment={property.monthlypayment}
+                onDeleteProperty={property.onDeleteProperty}
                 />
         );
     });

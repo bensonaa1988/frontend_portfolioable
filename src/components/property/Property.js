@@ -2,18 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Property.css";
 
-const Property = ({ propertyId, name, address, city, state, bedrooms, baths, rating, monthlypayment, onDeleteProperty}) => {
-    const handleOnDelete = () => {
-        onDeleteProperty(propertyId);
-    };
+const Property = ({ propertyId, name, address, city, state, bedrooms, baths, rating, monthlypayment}) => {
+    // const handleOnDelete = () => {
+    //     onDeleteProperty(propertyId);
+    // };
 
 
     return (
         <div className="border-property">
-        <p className="delete"
+        {/* <p className="delete"
         onClick={handleOnDelete}
         // src={require(".../images/x-icon.png")}
-        />
+        /> */}
         <div className="name">
             <p>{name}</p>
         </div>
@@ -57,7 +57,7 @@ Property.propTypes = {
     baths: PropTypes.number.isRequired,
     rating: PropTypes.number.isRequired,
     monthlypayment: PropTypes.number.isRequired,
-    onDeleteProperty: PropTypes.func.isRequired,
+    // onDeleteProperty: PropTypes.func.isRequired,
 };
 
 export default Property;
