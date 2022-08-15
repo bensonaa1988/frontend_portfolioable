@@ -15,32 +15,32 @@ const Property = ({ propertyId, name, address, city, state, bedrooms, baths, rat
         // src={require(".../images/x-icon.png")}
         /> */}
         <div className="name">
-            <p>{name}</p>
+            <p> name: {name}</p>
         </div>
 
         <div className="address">
-            <p>{address}</p>
+            <p> address: {address}</p>
         </div>    
         <div className="city">
-            <p>{city}</p>
+            <p> city: {city}</p>
         </div>  
         
         <div className="state">
-            <p>{state}</p>
+            <p> state: {state}</p>
         </div>   
         <div className="bedrooms">
-            <p>{bedrooms}</p>
+            <p> bedrooms: {bedrooms}</p>
         </div>   
 
         <div className="baths">
-            <p>{baths}</p>
+            <p>baths: {baths}</p>
         </div>   
 
         <div className="rating">
-            <p>{rating}</p>
+            <p> rating: {rating}</p>
         </div>
         <div className="monthlypayment">
-            <p>{monthlypayment}</p>
+            <p>monthly payment: {monthlypayment}</p>
         </div>       
         </div>
         
